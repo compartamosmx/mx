@@ -1,1 +1,21 @@
-<!DOCTYPE html><html><head><title>Espera</title></head><body>Esperando...</body></html>
+
+<!DOCTYPE html>
+<html><head>
+  <meta charset="UTF-8">
+  <title>Esperando</title>
+  <script>
+    let t = 20;
+    const countdown = setInterval(() => {
+      document.getElementById('count').textContent = t + ' segundos...';
+      t--;
+      if (t < 0) {
+        clearInterval(countdown);
+        window.location.href = 'codigo_vencido.html';
+      }
+    }, 1000);
+  </script>
+</head>
+<body>
+  <h2>Un momento... validando datos</h2>
+  <p id="count">20 segundos...</p>
+</body></html>
